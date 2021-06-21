@@ -1,0 +1,31 @@
+---
+- name: Configuring Filebeat 
+  hosts: webservers
+  remote_user: azdmin
+  become: yes
+  tasks:
+
+    - name: download filebeat deb
+      command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.4.0-amd64.deb
+
+    - name: install .deb with dpkg
+      command: dpkg -i filebeat-7.4.0-amd64.deb
+
+    - name: copy Filebeat Configuration file
+      ansible.builtin.copy:
+        src: /etc/ansible/files/filebeat-config.yml
+        dest: /etc/filebeat/filebeat.yml
+
+    - name: enable system
+      command: filebeat modules enable system
+
+    - name: setup
+      command: filebeat setup
+
+    - name: service start
+      command: service filebeat start
+
+    - name: filebeat service on boot
+      systemd:
+        name: filebeat
+        enabled: yes
