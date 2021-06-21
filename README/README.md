@@ -88,9 +88,12 @@ In order to use the playbook, you will need to have an Ansible control node alre
 
 SSH into the control node and follow the steps below:
 - Copy the elkplay.yml file to /etc/ansible.  I recommend placing filebeat-playbook.yml and metricbeat-playbook.yml in the roles/ directory.
-- Update the hosts file to include the IP addresses of the webservers and elk server VM's.  Under [webservers] include:
-  - 10.0.0.5 ansible_python_interpreter=/usr/bin/python3 and 10.0.0.6 ansible_python_interpreter=/usr/bin/python3
-  - Under [elk] include: 10.1.0.4 ansible_python_interpreter=/usr/bin/python3
+- Update the hosts file to include the IP addresses of the webservers and elk server VM's.  
+  - Under [webservers] include:
+   - 10.0.0.5 ansible_python_interpreter=/usr/bin/python3
+   - 10.0.0.6 ansible_python_interpreter=/usr/bin/python3
+  - Under [elk] include: 
+   - 10.1.0.4 ansible_python_interpreter=/usr/bin/python3
 - Run the playbook, and navigate to http://13.68.168.59:5601/app/kibana to check that the installation worked as expected.
 
 ### Commands For Running Playbooks & Updating
